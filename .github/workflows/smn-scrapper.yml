@@ -1,10 +1,9 @@
-name: Run SMN Scraper
+name: SMN Scraper (cada 2 horas)
 
-# Se ejecuta todos los días a las 03:00 UTC
 on:
   schedule:
-    - cron: "0 2 * * *"
-  workflow_dispatch:  # Permite ejecutar manualmente desde la UI de GitHub
+    - cron: "0 */2 * * *"     # Cada 2 horas
+  workflow_dispatch:          # Permite ejecutar manualmente
 
 jobs:
   scraping:
@@ -24,5 +23,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run SMN scraper
+      - name: Run scraper
         run: python smn.py
+
+      - name: Merge outputs into CSV
+        run: |
+          python merge_to_csv.py
+
+      - name: Commit CSV results
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Actualización automática de datos SMN"
+          file_pattern: "*.csv"
