@@ -1,4 +1,4 @@
-.name: Run SMN Scraper
+name: Run SMN Scraper
 
 # Se ejecuta todos los días a las 03:00 UTC
 on:
