@@ -107,7 +107,7 @@ def temperatures_panel_to_series(df_panel, field_values="TMAX",
     return df_series
 
 
-def main(config_path="config.json"):
+def main(config_path="config.example.json"):
 
     with open(config_path, "r") as f:
         config = json.load(f)
